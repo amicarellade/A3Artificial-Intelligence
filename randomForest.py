@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy as np
-# from tensorflow.keras import models, layers, utils, backend as K
 import matplotlib.pyplot as plt
-# import shap
 
 df = pd.read_csv("/Users/danteamicarella/Downloads/student-mat_modified (1)-1.csv")
 df = df.drop(df.columns[0], axis=1)
@@ -32,15 +30,4 @@ for column in category_columns:
 print(df.head())
 
 
-
-# One layer 
-# model = models.Sequential(name="Perceptron", layers=[
-#     layers.Dense(             #a fully connected layer
-#           name="dense",
-#           input_dim=3,        #with 3 features as the input
-#           units=1,            #and 1 node because we want 1 output
-#           activation='linear' #f(x)=x
-#     )
-# ])
-# model.summary()
 
