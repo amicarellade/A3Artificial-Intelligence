@@ -36,8 +36,9 @@ for column in category_columns:
 for column in category_columns:
     df[column] = df[column].astype('category')
 
-# Dropping based on Performance
-X = df.drop("Performance", axis = 1)
+columns_drop = ["Performance", "school", "Pstatus", "nursery", "higher", "romantic"]
+# Dropping based on Performance and unimportant columns
+X = df.drop(columns_drop, axis = 1)
 Y = df["Performance"]
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=.2, random_state=42)
@@ -68,11 +69,11 @@ y_pred = best_rf_model.predict(X_test)
 accuracy = accuracy_score(Y_test, y_pred)
 print("Accuracy:", accuracy)
 
-# model.fit(X_train, Y_train)
+# Find features or columns that impact the model the most
+feature_importances = best_rf_model.feature_importances_
 
-# y_pred = model.predict(X_test)
-
-# accuracy = accuracy_score(Y_test, y_pred)
-# print(accuracy)
+feature_importance_df = pd.DataFrame({'Feature': X.columns, 'Importance': feature_importances})
+sorted_features = feature_importance_df.sort_values(by='Importance', ascending=False)
+print(sorted_features)
 
 
