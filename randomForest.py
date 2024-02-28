@@ -7,7 +7,7 @@ from sklearn.ensemble import RandomForestClassifier
 
 df = pd.read_csv("/Users/danteamicarella/Downloads/student-mat_modified (1)-1.csv")
 df = df.drop(df.columns[0], axis=1)
-# print(df)
+print(df)
 
 # Convert object into indexes
 category_columns = list()
@@ -36,7 +36,7 @@ for column in category_columns:
 for column in category_columns:
     df[column] = df[column].astype('category')
 
-columns_drop = ["Performance", "school", "Pstatus", "nursery", "higher", "romantic"]
+columns_drop = ["Performance", "school", "Pstatus", "nursery", "romantic", "sex"]
 # Dropping based on Performance and unimportant columns
 X = df.drop(columns_drop, axis = 1)
 Y = df["Performance"]
@@ -57,6 +57,7 @@ grid_search.fit(X_train, Y_train)
 
 # Get the best parameters
 best_params = grid_search.best_params_
+print(best_params)
 
 # Train the model with the best parameters
 best_rf_model = RandomForestClassifier(**best_params, random_state=42)

@@ -33,14 +33,12 @@ for column in category_columns:
 for column in category_columns:
     df[column] = df[column].map(mapping_functions[column])
 
-# print(df.head())
-
 # Labeling categorical columns
 for column in category_columns:
     df[column] = df[column].astype('category')
 
 # Feature Selection
-columns_drop = ["Performance", "schoolsup", "higher", "famsup", "nursery", "school", "famrel", "Fedu"]
+columns_drop = ["Performance", "higher", "famsup", "nursery", "school", "famrel", "sex"]
 # columns_drop = ["Performance"]
 
 X = df.drop(columns_drop, axis = 1)
