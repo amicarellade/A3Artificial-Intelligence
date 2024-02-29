@@ -4,7 +4,7 @@ import tensorflow as tf
 from tensorflow import keras
 from keras.models import Model
 from keras.layers import Dense
-from tensorflow.keras import utils, backend, Sequential
+from keras import utils, backend, Sequential
 import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 import shap
@@ -19,7 +19,7 @@ for column in df.columns:
     if df[column].dtype == 'object':
         category_columns.append(column)
 
-print(category_columns)
+# print(category_columns)
 
 mapping_functions = dict()
 for column in category_columns:
@@ -29,7 +29,7 @@ for column in category_columns:
         mapping_function[value] = value_idx
     mapping_functions[column] = mapping_function
 
-print(mapping_functions)
+# print(mapping_functions)
 
 for column in category_columns:
     df[column] = df[column].map(mapping_functions[column])
@@ -40,7 +40,7 @@ X = df.drop(columns_drop, axis = 1)
 Y = df["Performance"]
 
 X_train, X_test, y_train, y_test = train_test_split(X, Y, test_size=0.2)
-print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
+# print(X_train.shape, X_test.shape, y_train.shape, y_test.shape)
 # determine the number of input features
 n_features = X_train.shape[1]
 # define model
