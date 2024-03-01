@@ -1,3 +1,4 @@
+from cleanData import preprocess_data
 import pandas as pd
 import numpy as np
 import tensorflow as tf
@@ -9,30 +10,8 @@ import matplotlib.pyplot as plt
 from sklearn.model_selection import train_test_split
 import shap
 
-df = pd.read_csv("/Users/danteamicarella/Downloads/student-mat_modified (1)-1.csv")
-df = df.drop(df.columns[0], axis=1)
-# print(df)
-
-# Convert object into indexes
-category_columns = list()
-for column in df.columns:
-    if df[column].dtype == 'object':
-        category_columns.append(column)
-
-# print(category_columns)
-
-mapping_functions = dict()
-for column in category_columns:
-    values = df[column].unique()
-    mapping_function = dict()
-    for value_idx, value in enumerate(values):
-        mapping_function[value] = value_idx
-    mapping_functions[column] = mapping_function
-
-# print(mapping_functions)
-
-for column in category_columns:
-    df[column] = df[column].map(mapping_functions[column])
+file = "/Users/danteamicarella/Downloads/student-mat_modified (1)-1.csv"
+df = preprocess_data(file)
 
 columns_drop = ["Performance", "sex", "nursery"]
 
@@ -55,6 +34,7 @@ model.fit(X_train, y_train, epochs=150, batch_size=32, verbose=0)
 # evaluate the model
 loss, acc = model.evaluate(X_test, y_test, verbose=0)
 print('Test Accuracy: %.3f' % acc)
+
 # One layer 
 # model = models.Sequential(name="Perceptron", layers=[
 #     layers.Dense(             #a fully connected layer

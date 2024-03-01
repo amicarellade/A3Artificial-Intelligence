@@ -1,3 +1,4 @@
+from cleanData import preprocess_data
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -5,36 +6,8 @@ from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.metrics import accuracy_score
 from sklearn.ensemble import RandomForestClassifier
 
-df = pd.read_csv("/Users/danteamicarella/Downloads/student-mat_modified (1)-1.csv")
-df = df.drop(df.columns[0], axis=1)
-print(df)
-
-# Convert object into indexes
-category_columns = list()
-for column in df.columns:
-    if df[column].dtype == 'object':
-        category_columns.append(column)
-
-# print(category_columns)
-
-mapping_functions = dict()
-for column in category_columns:
-    values = df[column].unique()
-    mapping_function = dict()
-    for value_idx, value in enumerate(values):
-        mapping_function[value] = value_idx
-    mapping_functions[column] = mapping_function
-
-# print(mapping_functions)
-
-for column in category_columns:
-    df[column] = df[column].map(mapping_functions[column])
-
-# print(df.head())
-
-# Labeling categorical columns
-for column in category_columns:
-    df[column] = df[column].astype('category')
+file = "/Users/danteamicarella/Downloads/student-mat_modified (1)-1.csv"
+df = preprocess_data(file)
 
 columns_drop = ["Performance", "school", "Pstatus", "nursery", "romantic", "sex"]
 # Dropping based on Performance and unimportant columns
