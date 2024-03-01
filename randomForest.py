@@ -33,7 +33,7 @@ best_params = grid_search.best_params_
 print(best_params)
 
 # Train the model with the best parameters
-best_rf_model = RandomForestClassifier(**best_params, random_state=42)
+best_rf_model = RandomForestClassifier(**best_params, random_state=42, bootstrap=True)
 best_rf_model.fit(X_train, Y_train)
 
 # Make predictions on the test set
